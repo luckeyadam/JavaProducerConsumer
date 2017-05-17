@@ -16,9 +16,9 @@ public class Main {
         MyConsumer consumer1 = new MyConsumer(buffer, ThreadColor.ANSI_PURPLE);
         MyConsumer consumer2 = new MyConsumer(buffer, ThreadColor.ANSI_CYAN);
 
-        new Thread(producer).start();
-        new Thread(consumer1).start();
-        new Thread(consumer2).start();
+        new Thread(producer).start(); // add things to the buffer
+        new Thread(consumer1).start(); // remove things from the buffer
+        new Thread(consumer2).start(); // remove things from the buffer
     }
 }
 
@@ -33,9 +33,8 @@ class MyProducer implements Runnable {
 
 
     public void run() {
-        Random random = new Random();
         String[] nums = {"1", "2", "3", "4", "5"};
-
+        // add a number to the buffer array list
         for (String num : nums) {
             try {
                 System.out.println(color + "Adding... " + num);
@@ -64,6 +63,7 @@ class MyConsumer implements Runnable {
     }
 
     public void run() {
+        // remove entries from the buffer
         while (true) {
             synchronized (buffer) {
                 if (buffer.isEmpty()) {
